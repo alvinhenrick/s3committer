@@ -20,6 +20,7 @@ import com.google.common.base.Objects;
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+
 import java.io.IOException;
 import java.net.URI;
 import java.util.Random;
@@ -102,7 +103,7 @@ public class Paths {
     // TODO: test this thoroughly
     // Use URI.create(Path#toString) to avoid URI character escape bugs
     URI relative = URI.create(basePath.toString())
-        .relativize(URI.create(fullPath.toString()));
+        .relativize(URI.create(fullPath.toString().replaceAll("\\s","%20")));
     return relative.getPath();
   }
 
